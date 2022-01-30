@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="duck2d">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/library/duck2d.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
