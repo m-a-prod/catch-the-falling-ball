@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class GameView implements View {
-    double[][] circles = new double[5][5];
+    double[][] circles = new double[100][5];
     int counter = 0;
 
     /*
