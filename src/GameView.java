@@ -4,10 +4,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class GameView implements View {
-    //0-x 1-y 2-radius
     double[][] circles = new double[100][5];
     int counter = 0;
-    int remainingTime = 60000;
 
     /*
     Просто заметки в коде, не обращайте внимание, они упрощают жизнь
@@ -16,6 +14,7 @@ public class GameView implements View {
     Mouse.hasClick(MouseButton.LEFT);
     Mouse.onClick(MouseButton.RIGHT);
      */
+    //0-x 1-y 2-radius
     public static void main(String[] args) {
         Game.start(new GameView());
     }
@@ -32,24 +31,16 @@ public class GameView implements View {
     }
 
     @Override
-    public void onTimer(long t) {
+    public void onTimer(long l) {
         if (Keyboard.onKey(KeyEvent.VK_ESCAPE)) System.exit(0);
         boolean click = Mouse.onClick(MouseButton.LEFT);
-        remainingTime = (int) (remainingTime - t); //Высчитывание оставшегося всеремени
-        if (remainingTime < 0 && counter < 30) {
-            System.out.println("You lose!");
-            System.exit(0);
-        } else if (remainingTime < 0 && counter > 30) {
-            System.out.println("You win!");
-            System.exit(0);
-        }
         for (int i = 0; i < circles.length; i++) {
-            circles[i][1] = circles[i][1] + circles[i][3] * t;
+            circles[i][1] = circles[i][1] + circles[i][3] * l;
 
             if (circles[i][1] >= 610) {
                 circles[i][1] = -10;
                 circles[i][0] = Math.random() * 800;
-                circles[i][2] = 5 + Math.random() * 20; //Радиус
+                circles[i][2] = Math.random() * 20; //Радиус
                 circles[i][3] = 0.1 + Math.random() * 0.4; // скорость
                 circles[i][4] = Math.random(); // цвет
             }
@@ -58,7 +49,7 @@ public class GameView implements View {
                 counter++;
                 circles[i][1] = -10;
                 circles[i][0] = Math.random() * 800;
-                circles[i][2] = 5 + Math.random() * 20; //Радиус
+                circles[i][2] = Math.random() * 20; //Радиус
                 circles[i][3] = 0.1 + Math.random() * 0.4; // скорость
                 circles[i][4] = Math.random(); // цвет
             }
@@ -74,9 +65,5 @@ public class GameView implements View {
         g.setColor(Color.WHITE);
         g.setTextStyle(1, 1, 20);
         g.ctext(0, 0, 800, 100, "" + counter);
-        g.setColor(Color.WHITE);
-        g.setTextStyle(1, 1, 20);
-        g.ctext(0, 0, 800, 50, "" + remainingTime / 1000);
-
     }
 }
