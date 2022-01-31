@@ -8,6 +8,7 @@ public class GameView implements View {
     int counter = 0;
 
     /*
+    Просто заметки в коде, не обращайте внимание, они упрощают жизнь
     Mouse.x();
     Mouse.y();
     Mouse.hasClick(MouseButton.LEFT);
@@ -43,8 +44,7 @@ public class GameView implements View {
                 circles[i][4] = Math.random(); // цвет
             }
 
-            if (Mouse.onClick(MouseButton.LEFT)
-                    && circles[i][2] > Math.sqrt(Math.pow(Mouse.x() - circles[i][0], 2) + Math.pow(Mouse.y() - circles[i][1], 2))) {
+            if (Mouse.onClick(MouseButton.LEFT) && circles[i][2] > Math.sqrt(Math.pow(Mouse.x() - circles[i][0], 2) + Math.pow(Mouse.y() - circles[i][1], 2))) {
                 counter++;
                 circles[i][1] = -10;
                 circles[i][0] = Math.random() * 800;
