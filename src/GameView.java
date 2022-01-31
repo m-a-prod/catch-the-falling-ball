@@ -23,9 +23,9 @@ public class GameView implements View {
     public void onShow() {
         for (int i = 0; i < circles.length; i++) {
             circles[i][0] = Math.random() * 800; //X
-            circles[i][1] = Math.random() * -600; //Y
+            circles[i][1] = Math.random() * -620; //Y
             circles[i][2] = Math.random() * 20; //Радиус
-            circles[i][3] = 0.1 + Math.random() * 0.4; //скорость
+            circles[i][3] = 0.1 + Math.random() * 0.3; //скорость
             circles[i][4] = Math.random(); //цвет
         }
     }
@@ -44,7 +44,7 @@ public class GameView implements View {
                 circles[i][4] = Math.random(); // цвет
             }
 
-            if (Mouse.onClick(MouseButton.LEFT) && circles[i][2] > Math.sqrt(Math.pow(Mouse.x() - circles[i][0], 2) + Math.pow(Mouse.y() - circles[i][1], 2))) {
+            if (Mouse.hasClick(MouseButton.LEFT) && circles[i][2] >= Math.sqrt(Math.pow(Mouse.x() - circles[i][0], 2) + Math.pow(Mouse.y() - circles[i][1], 2))) {
                 counter++;
                 circles[i][1] = -10;
                 circles[i][0] = Math.random() * 800;
