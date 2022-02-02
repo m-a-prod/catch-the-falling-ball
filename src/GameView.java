@@ -38,9 +38,11 @@ public class GameView implements View {
         remainingTime = (int) (remainingTime - t); //Высчитывание оставшегося всеремени
         if (remainingTime < 0 && counter < 30) {
             System.out.println("You lose!");
+            System.out.println("Your result is " + counter);
             System.exit(0);
         } else if (remainingTime < 0 && counter > 30) {
             System.out.println("You win!");
+            System.out.println("Your result is " + counter);
             System.exit(0);
         }
         for (int i = 0; i < circles.length; i++) {
