@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="pasaushiy-sharik:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/pasaushiy_sharik_jar</output-path>
-    <root id="archive" name="pasaushiy-sharik.jar">
-      <element id="module-output" name="pasaushiy-sharik" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/library/duck2d.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>
