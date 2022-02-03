@@ -9,10 +9,10 @@ import java.util.Scanner;
 public class GameView implements View {
     int counter = 0;
     int remainingTime = 60000;
-    int finalResult = 50;
+    int finalResult = 40;
     int radiusMin = 5, radiusMax = 20;
     double speedMin = 0.1, speedMax = 0.3;
-    int numberOfBalls = 100;
+    int numberOfBalls = 150;
     //0-x 1-y 2-radius
     Circle[] circles;
 
