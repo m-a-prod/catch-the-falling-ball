@@ -1,9 +1,12 @@
 import com.wizylab.duck2d.*;
+import com.wizylab.duck2d.Window;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class GameView implements View {
@@ -17,7 +20,13 @@ public class GameView implements View {
     Circle[] circles;
 
     public static void main(String[] args) {
+        Environment.put("window.title", "Catch the falling ball");
         Game.start(new GameView());
+        try {
+            Window.instance().setIconImage(ImageIO.read(new File("assets/icon.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
