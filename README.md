@@ -1,12 +1,12 @@
+English | [Русский](README_RU.md)
 # catch-the-falling-ball
-Catch the falling ball is an addictive game written in Java
+Catch the falling ball in this game written in Java
 
-Настройки для файла level.txt
-Этот файл нужен для настройки игры, я распишу все построчно.
-1. Здесь указывается продолжительность игры в миллисекундах. (100000)
-2. Сколько нужно поймать шаров для выигрышной игры. (50)
-3. Количество шаров. (100)
-4. Радиус шаров максимальный (10)
-5. Радиус шаров минимальный. (5)
-6. Скорость шаров максимальная. (число дробное 0,3)
-7. Скорость шаров минимальная. (число дробное 0,1)
+There is some settings for this file:
+1. Game duration in milliseconds. (default: 100000)
+2. Number of balls to win. (default: 50)
+3. Number of balls. (default: 100)
+4. Maximum ball radius. (default: 10)
+5. Minimum ball radius. (default: 5)
+6. Maximum speed of balls. (default: 0,3)
+7. Minimum speed of balls. (default: 0,1)
