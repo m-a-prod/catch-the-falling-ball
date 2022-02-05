@@ -18,7 +18,7 @@ public class GameView implements View {
     int numberOfBalls = 150;
     //0-x 1-y 2-radius
     Circle[] circles;
-//
+
     public static void main(String[] args) {
         Environment.put("window.title", "Catch the falling ball");
         Game.start(new GameView());
