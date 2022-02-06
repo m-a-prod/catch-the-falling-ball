@@ -16,6 +16,7 @@ public class GameView implements View {
     int radiusMin = 5, radiusMax = 20;
     double speedMin = 0.1, speedMax = 0.3;
     int numberOfBalls = 150;
+    boolean pause = false;
     //0-x 1-y 2-radius
     Circle[] circles;
 
@@ -49,10 +50,10 @@ public class GameView implements View {
 
     @Override
     public void onTimer(long t) {
-        if (Keyboard.onKey(KeyEvent.VK_ESCAPE)) System.exit(0);
+        if (Keyboard.onKey(KeyEvent.VK_ESCAPE)) pause = !pause;
         boolean click = Mouse.onClick(MouseButton.LEFT);
-
-        remainingTime = (int) (remainingTime - t); // высчитывание оставшегося времени
+        if (click && Mouse.x() > 740 && Mouse.y() < 60 && Mouse.x() < 790 && Mouse.y() > 10) pause = !pause;
+        if (!pause) remainingTime = (int) (remainingTime - t); // высчитывание оставшегося времени
         if (remainingTime < 0 && counter < finalResult) {
             System.out.println("You lose!");
             System.out.println("Your result is " + counter);
@@ -62,14 +63,15 @@ public class GameView implements View {
             System.out.println("Your result is " + counter);
             System.exit(0);
         }
-
-        for (Circle circle : circles) {
-            circle.move(t);
-            if (circle.y >= 610)
-                circle.reset(radiusMin, radiusMax, speedMin, speedMax);
-            if (click && circle.contains(Mouse.x(), Mouse.y())) {
-                counter++;
-                circle.reset(radiusMin, radiusMax, speedMin, speedMax);
+        if (!pause) {
+            for (Circle circle : circles) {
+                circle.move(t);
+                if (circle.y >= 610)
+                    circle.reset(radiusMin, radiusMax, speedMin, speedMax);
+                if (click && circle.contains(Mouse.x(), Mouse.y())) {
+                    counter++;
+                    circle.reset(radiusMin, radiusMax, speedMin, speedMax);
+                }
             }
         }
     }
@@ -77,12 +79,20 @@ public class GameView implements View {
     @Override
     public void onDraw(Graph g) {
         for (Circle circle : circles) circle.draw(g);
-
+        if (pause) g.putImage("pause-bg", 0, 0);
         g.setColor(Color.WHITE);
         g.setTextStyle(1, 1, 20);
         g.ctext(0, 0, 800, 100, "" + counter);
+        if (pause) {
+            g.setFillColor(Color.WHITE);
+            g.setTextStyle(1, 1, 20);
+            g.ctext(0, 0, 800, 150, "PAUSE");
+        }
         g.setColor(Color.WHITE);
         g.setTextStyle(1, 1, 20);
         g.ctext(0, 0, 800, 50, "" + remainingTime / 1000);
+        g.setFillColor(Color.white);
+        g.putImage("pause", 740, 10, 50);
+
     }
 }

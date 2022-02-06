@@ -22,7 +22,7 @@ public class Circle {
 
     public void reset(double radiusMin, double radiusMax, double speedMin, double speedMax) {
         x = Math.random() * 800;
-        y = -10;
+        y = -radiusMax - 10;
         radius = (int) (radiusMin + Math.random() * radiusMax);
         speed = speedMin + Math.random() * speedMax;
         color = (float) Math.random();
