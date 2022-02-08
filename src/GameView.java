@@ -93,6 +93,5 @@ public class GameView implements View {
         g.ctext(0, 0, 800, 50, "" + remainingTime / 1000);
         g.setFillColor(Color.white);
         g.putImage("pause", 740, 10, 50);
-
     }
 }
