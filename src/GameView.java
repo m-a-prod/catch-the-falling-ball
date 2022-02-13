@@ -10,41 +10,49 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class GameView implements View {
-    int counter = 0;
-    int remainingTime = 60000;
-    int finalResult = 40;
-    int radiusMin = 5, radiusMax = 20;
-    double speedMin = 0.1, speedMax = 0.3;
-    int numberOfBalls = 150;
+    int counter;
+    int remainingTime;
+    int finalResult;
+    int radiusMin, radiusMax;
+    double speedMin, speedMax;
+    int numberOfBalls;
     boolean pause = false;
     //0-x 1-y 2-radius
     Circle[] circles;
 
-    public static void main(String[] args) {
-        Environment.put("window.title", "Catch the falling ball");
-        Game.start(new GameView());
-        try {
-            Window.instance().setIconImage(ImageIO.read(new File("assets/icon.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void onShow() {
-        try (Scanner sc = new Scanner(new File("level.txt"))) {
-            remainingTime = sc.nextInt();
-            finalResult = sc.nextInt();
-            numberOfBalls = sc.nextInt();
+        int level = Environment.get("level");
+        if (level == 2) {
+            try (Scanner sc = new Scanner(new File("level.txt"))) {
+                remainingTime = sc.nextInt();
+                finalResult = sc.nextInt();
+                numberOfBalls = sc.nextInt();
+                circles = new Circle[numberOfBalls];
+                for (int i = 0; i < circles.length; i++)
+                    circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
+
+                radiusMax = sc.nextInt();
+                radiusMin = sc.nextInt();
+                speedMax = sc.nextDouble();
+                speedMin = sc.nextDouble();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        if (level == 1) {
+            counter = 0;
+            remainingTime = 60000;
+            finalResult = 40;
+            radiusMin = 5;
+            radiusMax = 20;
+            speedMin = 0.1;
+            speedMax = 0.3;
+            numberOfBalls = 150;
+            pause = false;
             circles = new Circle[numberOfBalls];
             for (int i = 0; i < circles.length; i++)
                 circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
-            radiusMax = sc.nextInt();
-            radiusMin = sc.nextInt();
-            speedMax = sc.nextDouble();
-            speedMin = sc.nextDouble();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
@@ -52,6 +60,10 @@ public class GameView implements View {
     public void onTimer(long t) {
         if (Keyboard.onKey(KeyEvent.VK_ESCAPE)) pause = !pause;
         boolean click = Mouse.onClick(MouseButton.LEFT);
+        if (pause && click && new Rectangle(188, 263, 425, 75).contains(Mouse.x(), Mouse.y())) {
+            pause = !pause;
+            Game.show(MenuView.class);
+        }
         if (click && Mouse.x() > 740 && Mouse.y() < 60 && Mouse.x() < 790 && Mouse.y() > 10) pause = !pause;
         if (!pause) remainingTime = (int) (remainingTime - t); // высчитывание оставшегося времени
         if (remainingTime < 0 && counter < finalResult) {
@@ -87,6 +99,7 @@ public class GameView implements View {
             g.setFillColor(Color.WHITE);
             g.setTextStyle(1, 1, 20);
             g.ctext(0, 0, 800, 150, "PAUSE");
+            g.putImage("exit-to-menu", 188, 263);
         }
         g.setColor(Color.WHITE);
         g.setTextStyle(1, 1, 20);
