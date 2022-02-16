@@ -28,14 +28,12 @@ public class GameView implements View {
                 remainingTime = sc.nextInt();
                 finalResult = sc.nextInt();
                 numberOfBalls = sc.nextInt();
-                circles = new Circle[numberOfBalls];
-                for (int i = 0; i < circles.length; i++)
-                    circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
-
                 radiusMax = sc.nextInt();
                 radiusMin = sc.nextInt();
                 speedMax = sc.nextDouble();
                 speedMin = sc.nextDouble();
+                circles = new Circle[numberOfBalls];
+                for (int i = 0; i < circles.length; i++) circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
