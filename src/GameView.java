@@ -92,7 +92,7 @@ public class GameView implements View {
         if (pause) g.putImage("pause-bg", 0, 0);
         g.setColor(Color.WHITE);
         g.setTextStyle(1, 1, 20);
-        g.ctext(0, 0, 800, 100, "" + counter);
+        g.ctext(0, 0, 800, 100, "" + finalResult + "/" + counter);
         if (pause) {
             g.setFillColor(Color.WHITE);
             g.setTextStyle(1, 1, 20);
