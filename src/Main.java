@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         Environment.put("window.title", "Catch the falling ball");
-        Game.addView(new GameView(), new MenuView(), new AboutView());
+        Game.addView(new GameView(), new MenuView(), new AboutView(), new WinView(), new LoseView());
         Game.start(MenuView.class);
         try {
             Window.instance().setIconImage(ImageIO.read(new File("assets/icon.png")));

@@ -33,7 +33,8 @@ public class GameView implements View {
                 speedMax = sc.nextDouble();
                 speedMin = sc.nextDouble();
                 circles = new Circle[numberOfBalls];
-                for (int i = 0; i < circles.length; i++) circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
+                for (int i = 0; i < circles.length; i++)
+                    circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -49,8 +50,7 @@ public class GameView implements View {
             numberOfBalls = 150;
             pause = false;
             circles = new Circle[numberOfBalls];
-            for (int i = 0; i < circles.length; i++)
-                circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
+            for (int i = 0; i < circles.length; i++) circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
         }
     }
 
@@ -62,16 +62,20 @@ public class GameView implements View {
             pause = !pause;
             Game.show(MenuView.class);
         }
+//      if (Keyboard.onKey(KeyEvent.VK_SPACE)) counter += Integer.MAX_VALUE - 4; //god mode
         if (click && Mouse.x() > 740 && Mouse.y() < 60 && Mouse.x() < 790 && Mouse.y() > 10) pause = !pause;
         if (!pause) remainingTime = (int) (remainingTime - t); // высчитывание оставшегося времени
+        //      определение победы или проигрыша
         if (remainingTime < 0 && counter < finalResult) {
             System.out.println("You lose!");
             System.out.println("Your result is " + counter);
-            System.exit(0);
+            Environment.put("counter", counter);
+            Game.show(LoseView.class);
         } else if (remainingTime < 0 && counter > finalResult) {
             System.out.println("You win!");
             System.out.println("Your result is " + counter);
-            System.exit(0);
+            Environment.put("counter", counter);
+            Game.show(WinView.class);
         }
         if (!pause) {
             for (Circle circle : circles) {
@@ -88,6 +92,7 @@ public class GameView implements View {
 
     @Override
     public void onDraw(Graph g) {
+
         for (Circle circle : circles) circle.draw(g);
         if (pause) g.putImage("pause-bg", 0, 0);
         g.setColor(Color.WHITE);
