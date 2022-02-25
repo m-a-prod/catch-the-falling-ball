@@ -24,6 +24,7 @@ public class GameView implements View {
     public void onShow() {
         int level = Environment.get("level");
         if (level == 2) {
+            counter = 0;
             try (Scanner sc = new Scanner(new File("level.txt"))) {
                 remainingTime = sc.nextInt();
                 finalResult = sc.nextInt();
@@ -37,7 +38,9 @@ public class GameView implements View {
                     circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+                Game.show(MenuView.class);
             }
+
         }
         if (level == 1) {
             counter = 0;

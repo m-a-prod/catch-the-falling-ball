@@ -17,9 +17,9 @@ public class AboutView implements View {
 
     @Override
     public void onDraw(Graph g) {
-        g.putImage("about/bg-about", 0,0);
-        g.putImage("about/back", 275,486);
-        g.putImage("about/repo-git",275,416);
+        g.putImage("about/bg-about", 0, 0);
+        g.putImage("about/back", 275, 486);
+        g.putImage("about/repo-git", 275, 416);
     }
 
     public void openGitHub() {
