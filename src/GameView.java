@@ -17,44 +17,14 @@ public class GameView implements View {
     double speedMin, speedMax;
     int numberOfBalls;
     boolean pause = false;
-    //0-x 1-y 2-radius
     Circle[] circles;
 
     @Override
     public void onShow() {
         int level = Environment.get("level");
-        if (level == 2) {
-            counter = 0;
-            try (Scanner sc = new Scanner(new File("level.txt"))) {
-                remainingTime = sc.nextInt();
-                finalResult = sc.nextInt();
-                numberOfBalls = sc.nextInt();
-                radiusMax = sc.nextInt();
-                radiusMin = sc.nextInt();
-                speedMax = sc.nextDouble();
-                speedMin = sc.nextDouble();
-                circles = new Circle[numberOfBalls];
-                for (int i = 0; i < circles.length; i++)
-                    circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Game.show(MenuView.class);
-            }
-
-        }
-        if (level == 1) {
-            counter = 0;
-            remainingTime = 60000;
-            finalResult = 40;
-            radiusMin = 5;
-            radiusMax = 20;
-            speedMin = 0.1;
-            speedMax = 0.3;
-            numberOfBalls = 150;
-            pause = false;
-            circles = new Circle[numberOfBalls];
-            for (int i = 0; i < circles.length; i++) circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
-        }
+        counter = 0;
+        if (level == 2) scanFile();
+        if (level == 1) resetSettings();
     }
 
     @Override
@@ -65,10 +35,8 @@ public class GameView implements View {
             pause = !pause;
             Game.show(MenuView.class);
         }
-//      if (Keyboard.onKey(KeyEvent.VK_SPACE)) counter += Integer.MAX_VALUE - 4; //god mode
         if (click && Mouse.x() > 740 && Mouse.y() < 60 && Mouse.x() < 790 && Mouse.y() > 10) pause = !pause;
-        if (!pause) remainingTime = (int) (remainingTime - t); // высчитывание оставшегося времени
-        //      определение победы или проигрыша
+        if (!pause) remainingTime = (int) (remainingTime - t);
         if (remainingTime < 0 && counter < finalResult) {
             System.out.println("You lose!");
             System.out.println("Your result is " + counter);
@@ -113,4 +81,36 @@ public class GameView implements View {
         g.setFillColor(Color.white);
         g.putImage("pause", 740, 10, 50);
     }
+
+    private void scanFile() {
+        try (Scanner sc = new Scanner(new File("level.txt"))) {
+            remainingTime = sc.nextInt();
+            finalResult = sc.nextInt();
+            numberOfBalls = sc.nextInt();
+            radiusMax = sc.nextInt();
+            radiusMin = sc.nextInt();
+            speedMax = sc.nextDouble();
+            speedMin = sc.nextDouble();
+            circles = new Circle[numberOfBalls];
+            for (int i = 0; i < circles.length; i++)
+                circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Game.show(MenuView.class);
+        }
+    }
+
+    private void resetSettings() {
+        remainingTime = 60000;
+        finalResult = 40;
+        radiusMin = 5;
+        radiusMax = 20;
+        speedMin = 0.1;
+        speedMax = 0.3;
+        numberOfBalls = 150;
+        pause = false;
+        circles = new Circle[numberOfBalls];
+        for (int i = 0; i < circles.length; i++) circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
+    }
+
 }
