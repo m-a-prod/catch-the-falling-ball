@@ -1,12 +1,9 @@
 import com.wizylab.duck2d.*;
-import com.wizylab.duck2d.Window;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class GameView implements View {
@@ -24,7 +21,12 @@ public class GameView implements View {
         int level = Environment.get("level");
         counter = 0;
         if (level == 2) scanFile();
-        if (level == 1) resetSettings();
+        if (level == 1) defaultSettings();
+        if (level == 3) easySettings();
+        if (level == 4) hardSettings();
+        pause = false;
+        circles = new Circle[numberOfBalls];
+        for (int i = 0; i < circles.length; i++) circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
     }
 
     @Override
@@ -51,8 +53,7 @@ public class GameView implements View {
         if (!pause) {
             for (Circle circle : circles) {
                 circle.move(t);
-                if (circle.y >= 610)
-                    circle.reset(radiusMin, radiusMax, speedMin, speedMax);
+                if (circle.y >= 610) circle.reset(radiusMin, radiusMax, speedMin, speedMax);
                 if (click && circle.contains(Mouse.x(), Mouse.y())) {
                     counter++;
                     circle.reset(radiusMin, radiusMax, speedMin, speedMax);
@@ -91,16 +92,13 @@ public class GameView implements View {
             radiusMin = sc.nextInt();
             speedMax = sc.nextDouble();
             speedMin = sc.nextDouble();
-            circles = new Circle[numberOfBalls];
-            for (int i = 0; i < circles.length; i++)
-                circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Game.show(MenuView.class);
         }
     }
 
-    private void resetSettings() {
+    private void defaultSettings() {
         remainingTime = 60000;
         finalResult = 40;
         radiusMin = 5;
@@ -108,9 +106,25 @@ public class GameView implements View {
         speedMin = 0.1;
         speedMax = 0.3;
         numberOfBalls = 150;
-        pause = false;
-        circles = new Circle[numberOfBalls];
-        for (int i = 0; i < circles.length; i++) circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
     }
 
+    private void easySettings() {
+        remainingTime = 60000;
+        finalResult = 20;
+        radiusMin = 10;
+        radiusMax = 20;
+        speedMin = 0.1;
+        speedMax = 0.3;
+        numberOfBalls = 100;
+    }
+
+    private void hardSettings() {
+        remainingTime = 60000;
+        finalResult = 100;
+        radiusMin = 3;
+        radiusMax = 10;
+        speedMin = 0.1;
+        speedMax = 0.5;
+        numberOfBalls = 200;
+    }
 }
