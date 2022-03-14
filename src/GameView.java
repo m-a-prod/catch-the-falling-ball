@@ -64,7 +64,6 @@ public class GameView implements View {
 
     @Override
     public void onDraw(Graph g) {
-
         for (Circle circle : circles) circle.draw(g);
         if (pause) g.putImage("pause-bg", 0, 0);
         g.setColor(Color.WHITE);
@@ -121,10 +120,10 @@ public class GameView implements View {
     private void hardSettings() {
         remainingTime = 60000;
         finalResult = 100;
-        radiusMin = 3;
-        radiusMax = 10;
+        radiusMin = 7;
+        radiusMax = 14;
         speedMin = 0.1;
         speedMax = 0.5;
-        numberOfBalls = 200;
+        numberOfBalls = 50;
     }
 }
