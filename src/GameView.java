@@ -18,13 +18,19 @@ public class GameView implements View {
 
     @Override
     public void onShow() {
-        int level = Environment.get("level");
         counter = 0;
-        if (level == 2) scanFile();
-        if (level == 1) defaultSettings();
-        if (level == 3) easySettings();
-        if (level == 4) hardSettings();
         pause = false;
+        int level = Environment.get("level");
+        if (level == 1) scanFile();
+        else {
+            remainingTime = Environment.get("remainingTime");
+            finalResult = Environment.get("finalResult");
+            radiusMin = Environment.get("radiusMin");
+            radiusMax = Environment.get("radiusMax");
+            speedMin = Environment.get("speedMin");
+            speedMax = Environment.get("speedMax");
+            numberOfBalls = Environment.get("numberOfBalls");
+        }
         circles = new Circle[numberOfBalls];
         for (int i = 0; i < circles.length; i++) circles[i] = new Circle(radiusMin, radiusMax, speedMin, speedMax);
     }
@@ -95,35 +101,5 @@ public class GameView implements View {
             e.printStackTrace();
             Game.show(MenuView.class);
         }
-    }
-
-    private void defaultSettings() {
-        remainingTime = 60000;
-        finalResult = 40;
-        radiusMin = 5;
-        radiusMax = 20;
-        speedMin = 0.1;
-        speedMax = 0.3;
-        numberOfBalls = 150;
-    }
-
-    private void easySettings() {
-        remainingTime = 60000;
-        finalResult = 20;
-        radiusMin = 10;
-        radiusMax = 20;
-        speedMin = 0.1;
-        speedMax = 0.3;
-        numberOfBalls = 100;
-    }
-
-    private void hardSettings() {
-        remainingTime = 60000;
-        finalResult = 100;
-        radiusMin = 7;
-        radiusMax = 14;
-        speedMin = 0.1;
-        speedMax = 0.5;
-        numberOfBalls = 50;
     }
 }
