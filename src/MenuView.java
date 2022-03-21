@@ -15,8 +15,8 @@ public class MenuView implements View {
         if (Keyboard.onKey(KeyEvent.VK_ESCAPE)) System.exit(0);
         boolean click = Mouse.onClick(MouseButton.LEFT);
         if (click && BUTTONS[0].contains(Mouse.x(), Mouse.y())) Game.show(SelectLevelView.class);
-        if (click && BUTTONS[1].contains(Mouse.x(), Mouse.y())) System.exit(0);
-        if (click && BUTTONS[2].contains(Mouse.x(), Mouse.y())) Game.show(AboutView.class);
+        if (click && BUTTONS[2].contains(Mouse.x(), Mouse.y())) System.exit(0);
+        if (click && BUTTONS[1].contains(Mouse.x(), Mouse.y())) Game.show(AboutView.class);
     }
 
     @Override
