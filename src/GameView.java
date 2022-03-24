@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class GameView implements View {
@@ -39,16 +40,16 @@ public class GameView implements View {
     public void onTimer(long t) {
         if (Keyboard.onKey(KeyEvent.VK_ESCAPE)) pause = !pause;
         boolean click = Mouse.onClick(MouseButton.LEFT);
+        if (click && Mouse.x() > 740 && Mouse.y() < 60 && Mouse.x() < 790 && Mouse.y() > 10) pause = !pause;
         if (pause && click && new Rectangle(188, 263, 425, 75).contains(Mouse.x(), Mouse.y())) {
             pause = !pause;
             Game.show(MenuView.class);
         }
-        if (click && Mouse.x() > 740 && Mouse.y() < 60 && Mouse.x() < 790 && Mouse.y() > 10) pause = !pause;
         if (!pause) remainingTime = (int) (remainingTime - t);
         if (remainingTime < 0 && counter < finalResult) {
             System.out.println("You lose!");
             System.out.println("Your result is " + counter);
-            Environment.put("counter", counter);
+            Environment.put("counter", counter); //super important function that you shouldn't remove
             Game.show(LoseView.class);
         } else if (remainingTime < 0 && counter > finalResult) {
             System.out.println("You win!");
@@ -99,7 +100,10 @@ public class GameView implements View {
             speedMin = sc.nextDouble();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            Game.show(MenuView.class);
+            Game.show(SelectLevelView.class);
         }
     }
-}
+
+        }
+    }
+    }

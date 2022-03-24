@@ -14,21 +14,25 @@ public class SelectLevelView implements View {
         if (Keyboard.onKey(KeyEvent.VK_ESCAPE)) Game.show(MenuView.class);
         boolean click = Mouse.onClick(MouseButton.LEFT);
         if (click && new Rectangle(235, 271, 328, 58).contains(Mouse.x(), Mouse.y())) {
-            setSettings(60000, 40, 5, 20, 0.1, 0.3, 150);//обычный
+            //Обычный уровень
+            setSettings(60000, 40, 5, 20, 0.1, 0.3, 150);
             Game.show(GameView.class);
         }
 
         if (click && new Rectangle(234, 440, 329, 58).contains(Mouse.x(), Mouse.y())) {
-            Environment.put("level", 1); //Настраиваемый
+            //Настраиваемый уровень
+            Environment.put("level", 1);
             Game.show(GameView.class);
         }
 
         if (click && new Rectangle(234, 354, 329, 58).contains(Mouse.x(), Mouse.y())) {
-            setSettings(60000, 20, 10, 20, 0.1, 0.3, 100); //легкий
+            //Легкий уровень
+            setSettings(60000, 20, 10, 20, 0.1, 0.3, 100);
             Game.show(GameView.class);
         }
         if (click && new Rectangle(234, 188, 329, 58).contains(Mouse.x(), Mouse.y())) {
-            setSettings(60000, 100, 7, 14, 0.1, 0.5, 50); //сложный
+            //Сложный уровень
+            setSettings(60000, 100, 7, 14, 0.1, 0.5, 50);
             Game.show(GameView.class);
         }
         //Кнопка назад
