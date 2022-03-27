@@ -4,11 +4,12 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class GameView implements View {
-    int counter;
+    int counter, level;
     int remainingTime;
     int finalResult;
     int radiusMin, radiusMax;
@@ -21,7 +22,7 @@ public class GameView implements View {
     public void onShow() {
         counter = 0;
         pause = false;
-        int level = Environment.get("level");
+        level = Environment.get("level");
         if (level == 1) scanFile();
         else {
             remainingTime = Environment.get("remainingTime");
@@ -49,11 +50,13 @@ public class GameView implements View {
         if (remainingTime < 0 && counter < finalResult) {
             System.out.println("You lose!");
             System.out.println("Your result is " + counter);
+            if(level != 1) saveResultToFile();
             Environment.put("counter", counter); //super important function that you shouldn't remove
             Game.show(LoseView.class);
         } else if (remainingTime < 0 && counter > finalResult) {
             System.out.println("You win!");
             System.out.println("Your result is " + counter);
+            if(level != 1) saveResultToFile();
             Environment.put("counter", counter);
             Game.show(WinView.class);
         }
@@ -104,6 +107,18 @@ public class GameView implements View {
         }
     }
 
+    private void saveResultToFile() {
+        int tempCounter = counter;
+        try (Scanner sc = new Scanner(new File("statistics"))) {
+            tempCounter += sc.nextInt();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        try (FileWriter fw = new FileWriter("statistics")) {
+            fw.write("" + tempCounter);
+            fw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-    }
+}
