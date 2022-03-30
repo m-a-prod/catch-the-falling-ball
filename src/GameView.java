@@ -50,13 +50,13 @@ public class GameView implements View {
         if (remainingTime < 0 && counter < finalResult) {
             System.out.println("You lose!");
             System.out.println("Your result is " + counter);
-            if(level != 1) saveResultToFile();
+            if (level != 1) saveResultToFile();
             Environment.put("counter", counter); //super important function that you shouldn't remove
             Game.show(LoseView.class);
-        } else if (remainingTime < 0 && counter > finalResult) {
+        } else if (counter >= finalResult) {
             System.out.println("You win!");
             System.out.println("Your result is " + counter);
-            if(level != 1) saveResultToFile();
+            if (level != 1) saveResultToFile();
             Environment.put("counter", counter);
             Game.show(WinView.class);
         }

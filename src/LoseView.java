@@ -20,8 +20,8 @@ public class LoseView implements View {
     public void onDraw(Graph g) {
         g.putImage("lose/bg", 0, 0);
         g.setColor(Color.white);
-        g.setFont(Fonts.get("font", 1, 30));
-        g.ctext(319, 323, 481, 345, "Счет :" + count);
+        /*g.setFont(Fonts.get("font", 1, 30));
+        g.ctext(319, 323, 481, 345, "Счет :" + count);*/
         g.putImage("lose/exitmenu", 231, 381);
     }
 }
