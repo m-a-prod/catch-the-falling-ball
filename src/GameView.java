@@ -41,7 +41,10 @@ public class GameView implements View {
     public void onTimer(long t) {
         if (Keyboard.onKey(KeyEvent.VK_ESCAPE)) pause = !pause;
         boolean click = Mouse.onClick(MouseButton.LEFT);
-        if (click && Mouse.x() > 740 && Mouse.y() < 60 && Mouse.x() < 790 && Mouse.y() > 10) pause = !pause;
+        if (click && Mouse.x() > 740 && Mouse.y() < 60 && Mouse.x() < 790 && Mouse.y() > 10) {
+            pause = !pause;
+            saveResultToFile();
+        }
         if (pause && click && new Rectangle(188, 263, 425, 75).contains(Mouse.x(), Mouse.y())) {
             pause = !pause;
             Game.show(MenuView.class);
