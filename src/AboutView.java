@@ -25,7 +25,7 @@ public class AboutView implements View {
     public void openGitHub() {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
             try {
-                Desktop.getDesktop().browse(new URI("https://github.com/maxim-adaev-production/catch-the-falling-ball"));
+                Desktop.getDesktop().browse(new URI("https://github.com/m-a-prod/catch-the-falling-ball"));
             } catch (IOException | URISyntaxException e) {
                 e.printStackTrace();
             }
